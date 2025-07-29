@@ -31,7 +31,7 @@ function hideSplashScreen() {
         }, 500); // Match CSS transition duration
     }
 }
-// Use DOMContentLoaded for potentially faster hide, or window.load for guaranteed asset load
+// Use DOMContentLoaded for potentially faster hide, or window load for guaranteed asset load
 // window.addEventListener('DOMContentLoaded', hideSplashScreen); // Faster
 window.addEventListener('load', () => {
      // Show splash for a minimum time
