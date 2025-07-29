@@ -1,6 +1,32 @@
 <?php
 // @/header.php
-// This file assumes $config.php has already been included
+// This file now includes its own dependency.
+
+// Define the path to the config file relative to this file's location
+$config_path = __DIR__ . '/config.php';
+
+// Check if the config file exists before including it
+if (file_exists($config_path)) {
+    include $config_path;
+} else {
+    // Handle the error gracefully if config is missing
+    http_response_code(500); // Internal Server Error
+    die('Error: Configuration file (@/config.php) not found. Please check your installation.');
+}
+// Ensure language constants are defined, even if config failed (fallback)
+if (!defined('LANG_CODE')) { define('LANG_CODE', 'en'); }
+if (!defined('TXT_HOME')) { define('TXT_HOME', 'Home'); }
+if (!defined('TXT_ABOUT')) { define('TXT_ABOUT', 'About'); }
+if (!defined('TXT_CONTACT')) { define('TXT_CONTACT', 'Contact'); }
+if (!defined('TXT_SPLASH_MESSAGE')) { define('TXT_SPLASH_MESSAGE', 'Loading...'); }
+if (!defined('TXT_OFFLINE_MESSAGE')) { define('TXT_OFFLINE_MESSAGE', 'No Internet Connection'); }
+if (!defined('TXT_LANGUAGE')) { define('TXT_LANGUAGE', 'Language'); }
+if (!defined('TXT_THEME')) { define('TXT_THEME', 'Theme'); }
+if (!defined('TXT_THEME_AUTO')) { define('TXT_THEME_AUTO', 'Auto'); }
+if (!defined('TXT_THEME_LIGHT')) { define('TXT_THEME_LIGHT', 'Light'); }
+if (!defined('TXT_THEME_DARK')) { define('TXT_THEME_DARK', 'Dark'); }
+if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
+
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo LANG_CODE; ?>" data-bs-theme="auto">
