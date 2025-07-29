@@ -51,7 +51,7 @@ if (file_exists($lang_file_path)) {
 }
 
 // --- Site Configuration ---
-define('SITE_NAME', 'My Awesome Site');
-define('BASE_URL', 'http://localhost/your-project-name'); // Adjust to your actual URL
+define('SITE_NAME', 'Prinsweb');
+define('BASE_URL', 'http://localhost/Prinsweb'); // Adjust to your actual URL or your-project-name
 
 ?>
