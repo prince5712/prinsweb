@@ -1,7 +1,7 @@
 <?php
 // @/index.php
 // Include header (which includes config)
-include_once 'header.php';
+include_once './@/header.php';
 ?>
 
 <!-- Hero Section (Modern Jumbotron Replacement) -->
@@ -79,5 +79,5 @@ include_once 'header.php';
 
 <?php
 // Include footer (closes HTML structure)
-include_once 'footer.php';
+include_once './@/footer.php';
 ?>

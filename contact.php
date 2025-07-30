@@ -1,7 +1,7 @@
 <?php
 // @/contact.php
 // Include header (which includes config)
-include_once 'header.php';
+include_once './@/header.php';
 ?>
 
 <!-- Page Header -->
@@ -112,5 +112,5 @@ include_once 'header.php';
 
 <?php
 // Include footer (closes HTML structure)
-include_once 'footer.php';
+include_once './@/footer.php';
 ?>
