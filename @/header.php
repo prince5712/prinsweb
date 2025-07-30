@@ -36,10 +36,15 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
 
 <!-- Splash Screen -->
 <div id="splash-screen">
+    <div class="splash-logo">
+        <i class="bi bi-boxes display-1"></i>
+    </div>
     <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden"><?php echo TXT_SPLASH_MESSAGE; ?></span>
     </div>
-    <p class="mt-2"><?php echo TXT_SPLASH_MESSAGE; ?></p>
+    <div class="splash-message">
+        <?php echo TXT_SPLASH_MESSAGE; ?>
+    </div>
 </div>
 
 <!-- Offline Page -->
