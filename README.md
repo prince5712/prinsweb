@@ -87,6 +87,12 @@ This project is a responsive, feature-rich website built with **PHP**, **Bootstr
 *   The Service Worker provides basic caching. Depending on your needs, you might want to expand its scope and caching strategy.
 *   The content protection measures (disable right-click, copy/paste) offer basic deterrence but can be bypassed by users with technical knowledge.
 
+## 🤝 License
+
+*  This project uses Bootstrap, which is licensed under the MIT License.
+*  Copyright (c) 2011-2025 Twitter, Inc.
+*  https://github.com/twbs/bootstrap/blob/main/LICENSE
+
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to fork the repository and submit pull requests for improvements, bug fixes, or new features.
