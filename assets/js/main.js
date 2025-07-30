@@ -1,141 +1,133 @@
-// assets/js/main.js
+// @/assets/js/main.js
 
 // --- Service Worker Registration ---
-// Check if service workers are supported
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/assets/js/service-worker.js')
+        const swPath = './assets/js/service-worker.js'; // Relative to site root
+        navigator.serviceWorker.register(swPath)
             .then((registration) => {
-                console.log('Service Worker registered with scope:', registration.scope);
+                console.log('✅ Service Worker registered:', registration.scope);
             })
             .catch((error) => {
-                console.log('Service Worker registration failed:', error);
+                console.warn('⚠️ Service Worker registration failed:', error);
             });
     });
 } else {
-    console.log('Service Workers are not supported in this browser.');
+    console.log('ℹ️ Service Workers not supported in this browser.');
 }
 
-
-// --- Splash Screen ---
+// --- Splash Screen Control ---
 function hideSplashScreen() {
-    const splashScreen = document.getElementById('splash-screen');
-    if (splashScreen) {
-        splashScreen.classList.add('fade-out');
+    const splash = document.getElementById('splash-screen');
+    const mainContent = document.getElementById('main-content');
+    const offlinePage = document.getElementById('offline-page');
+
+    if (!splash) return;
+
+    // Only hide splash if we're online or ready to show offline page
+    if (navigator.onLine || offlinePage?.style.display !== 'none') {
+        splash.classList.add('fade-out');
         setTimeout(() => {
-            splashScreen.style.display = 'none';
-            const mainContent = document.getElementById('main-content');
-            if (mainContent) {
-                mainContent.style.display = 'block';
+            splash.style.display = 'none';
+            if (mainContent && navigator.onLine) {
+                mainContent.classList.remove('d-none');
             }
         }, 500); // Match CSS transition duration
     }
 }
-// Use DOMContentLoaded for potentially faster hide, or window load for guaranteed asset load
-// window.addEventListener('DOMContentLoaded', hideSplashScreen); // Faster
+
+// Show splash for at least 1.5s, then hide when page is ready
 window.addEventListener('load', () => {
-     // Show splash for a minimum time
-     setTimeout(hideSplashScreen, 1500);
+    setTimeout(hideSplashScreen, 1500);
 });
 
-
-// --- Theme Switching ---
+// --- Theme Switching Logic ---
 function setTheme(theme) {
+    let appliedTheme = theme;
+
     if (theme === 'auto') {
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-bs-theme', systemPrefersDark ? 'dark' : 'light');
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        appliedTheme = prefersDark ? 'dark' : 'light';
     }
-    // Update theme dropdown button icon/text if needed
-    updateThemeButtonUI(theme);
-}
 
-function updateThemeButtonUI(theme) {
-    const themeIcon = document.querySelector('#themeDropdown i');
-    const themeDropdown = document.querySelector('#themeDropdown');
+    document.documentElement.setAttribute('data-bs-theme', appliedTheme);
+
+    // Update dropdown UI
+    const themeIcon = document.querySelector('#themeDropdown i.bi');
+    const themeBtn = document.querySelector('#themeDropdown');
+
     if (themeIcon) {
-        themeIcon.className = 'bi'; // Reset classes
-        if (theme === 'auto') {
-            themeIcon.classList.add('bi-circle-half');
-            if(themeDropdown) themeDropdown.title = "Auto (System)";
-        } else if (theme === 'light') {
+        themeIcon.className = 'bi'; // Clear old icons
+        if (appliedTheme === 'light') {
             themeIcon.classList.add('bi-sun');
-            if(themeDropdown) themeDropdown.title = "Light Mode";
-        } else if (theme === 'dark') {
+            themeBtn.title = TXT_THEME_LIGHT;
+        } else if (appliedTheme === 'dark') {
             themeIcon.classList.add('bi-moon');
-            if(themeDropdown) themeDropdown.title = "Dark Mode";
-        }
-    }
-}
-
-// Set initial theme based on saved preference or system
-let savedTheme = localStorage.getItem('theme');
-let effectiveTheme = 'auto'; // Default effective theme
-
-if (savedTheme) {
-    effectiveTheme = savedTheme;
-} else {
-    // Determine initial effective theme if none saved
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        effectiveTheme = 'dark';
-    } else {
-        effectiveTheme = 'light';
-    }
-    localStorage.setItem('theme', 'auto'); // Explicitly save 'auto' if it was the initial state
-}
-// Apply the initial theme
-setTheme(effectiveTheme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : effectiveTheme);
-
-// Listen for system theme changes if in auto mode
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (localStorage.getItem('theme') === 'auto') {
-        setTheme(e.matches ? 'dark' : 'light');
-    }
-});
-
-// Handle theme dropdown clicks
-document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-    element.addEventListener('click', function (e) {
-        e.preventDefault();
-        const theme = this.getAttribute('data-bs-theme-value');
-        localStorage.setItem('theme', theme);
-        if (theme === 'auto') {
-            setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            themeBtn.title = TXT_THEME_DARK;
         } else {
-            setTheme(theme);
+            themeIcon.classList.add('bi-circle-half');
+            themeBtn.title = TXT_THEME_AUTO;
         }
+    }
+}
+
+// Initialize theme from localStorage or system preference
+document.addEventListener('DOMContentLoaded', () => {
+    let savedTheme = localStorage.getItem('theme') || 'auto';
+    setTheme(savedTheme);
+
+    // Add click listeners to theme dropdown items
+    document.querySelectorAll('[data-bs-theme-value]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const theme = e.target.getAttribute('data-bs-theme-value');
+            localStorage.setItem('theme', theme);
+            setTheme(theme);
+        });
     });
 });
 
-
-// --- Content Protection ---
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('copy', event => event.preventDefault());
-    document.addEventListener('cut', event => event.preventDefault());
-    document.addEventListener('paste', event => event.preventDefault());
+// Listen for system theme changes (only if in "auto" mode)
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (localStorage.getItem('theme') === 'auto') {
+        const newTheme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-bs-theme', newTheme);
+    }
 });
-
 
 // --- Offline Support ---
 function updateOnlineStatus() {
     const offlinePage = document.getElementById('offline-page');
     const mainContent = document.getElementById('main-content');
-    const splashScreen = document.getElementById('splash-screen');
+
+    if (!offlinePage) return;
 
     if (navigator.onLine) {
-        if (offlinePage) offlinePage.style.display = 'none';
-        // Only show main content if splash is gone
-        if (mainContent && splashScreen && splashScreen.style.display === 'none') {
-             mainContent.style.display = 'block';
+        offlinePage.classList.add('d-none');
+        offlinePage.classList.remove('flex');
+        if (mainContent && document.getElementById('splash-screen')?.style.display === 'none') {
+            mainContent.classList.remove('d-none');
         }
     } else {
-        if (offlinePage) offlinePage.style.display = 'flex';
-        if (mainContent) mainContent.style.display = 'none';
+        mainContent?.classList.add('d-none');
+        offlinePage.classList.remove('d-none');
+        offlinePage.classList.add('flex');
     }
 }
+
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
-// Check initial status
-updateOnlineStatus();
+
+// Initial check
+document.addEventListener('DOMContentLoaded', () => {
+    updateOnlineStatus();
+});
+
+// --- Content Protection (Optional - Use with Caution) ---
+// ⚠️ Note: This is not foolproof and may frustrate users.
+/*
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+document.addEventListener('copy', (e) => e.preventDefault());
+document.addEventListener('cut', (e) => e.preventDefault());
+document.addEventListener('paste', (e) => e.preventDefault());
+*/

@@ -1,19 +1,28 @@
-/* assets/css/custom.css */
+/* @/assets/css/custom.css */
+/* === Global Layout & Sticky Footer Support === */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-/* --- Body & Main Wrapper for Sticky Footer --- */
-/* Body is set to d-flex flex-column vh-100 in header.php */
-/* #main-wrapper is set to flex-grow-1 d-flex flex-column in header.php */
-/* #main-content gets flex-grow-1 to take up available space */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+#main-content {
+    flex: 1 0 auto;
+}
 
-/* --- Splash Screen --- */
+/* === Splash Screen === */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Use Bootstrap theme-aware background colors */
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
     display: flex;
@@ -25,28 +34,18 @@
     transition: opacity 0.5s ease-out;
 }
 
-/* Ensure splash/offline background matches dark theme if needed */
-[data-bs-theme="dark"] #splash-screen,
-[data-bs-theme="dark"] #offline-page {
-    background-color: var(--bs-body-bg); /* Should be dark */
-    color: var(--bs-body-color);
-}
-
 #splash-screen.fade-out {
     opacity: 0;
     pointer-events: none;
 }
 
-/* Initially hide main content */
-#main-content {
-    display: none;
-    /* flex-grow-1 is set in HTML to fill space between navbar and footer */
+#splash-screen .spinner-border {
+    width: 3rem;
+    height: 3rem;
 }
 
-
-/* --- Offline Page Styles --- */
+/* === Offline Page === */
 #offline-page {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -54,46 +53,130 @@
     height: 100%;
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
+    display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 9998;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-/* --- Main Content Padding Fix for Fixed Navbar --- */
-/* The fixed navbar covers content, so add padding equal to its height */
-/* Bootstrap's default navbar height is ~56px for lg screens, ~48px for smaller */
-/* Using padding-top on the main content area or body is common */
-/* We'll add it to the main content wrapper div */
-/* Since we use flexbox for sticky footer, adding padding directly to #main-wrapper might interfere */
-/* A better approach is often to add a top margin or padding to the <main> element itself */
-/* Let's add padding-top to #main-content */
-/* We'll use a CSS variable or a fixed value. Bootstrap's spacing utilities can help too. */
-/* Let's try adding a class with padding-top to the main element in header.php */
-/* Actually, Bootstrap 5 has a utility for this: pt-5 (padding top 3rem) */
-/* But the navbar is smaller than 3rem usually. Let's use a custom style. */
-/* We added my-4 (margin y 1.5rem) to main. Let's increase top margin if needed. */
-/* Or, add padding to the wrapper div inside body but below navbar. */
-/* Easiest fix: Add padding-top to the body when navbar is fixed. */
-/* However, splash screen covers everything, so it's less critical during load. */
-/* After splash, main-content needs padding. */
-/* Let's stick with the my-4 on main for now, and adjust if needed. */
-
-
-/* --- Advanced Splash Animation Example (Optional) --- */
-/*
-#splash-screen .spinner-border {
-    animation: pulse 2s infinite;
+#offline-page i {
+    font-size: 3rem;
 }
-@keyframes pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
-}
-*/
 
-/* --- Sticky Footer Adjustments --- */
-/* The .mt-auto on the footer should handle pushing it down. */
-/* Ensure footer doesn't shrink */
-footer {
-    flex-shrink: 0; /* Footer should not shrink */
+/* Auto theme adjustment for splash/offline screens */
+[data-bs-theme="dark"] #splash-screen,
+[data-bs-theme="dark"] #offline-page {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
+
+[data-bs-theme="light"] #splash-screen,
+[data-bs-theme="light"] #offline-page {
+    background-color: var(--bs-light);
+    color: var(--bs-dark);
+}
+
+/* === Navbar Enhancements === */
+.navbar {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-link {
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* === Footer === */
+.footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === Content Cards & UI Elements === */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    border: none;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--bs-primary);
+    color: white !important;
+}
+
+/* === Form Elements === */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* === Responsive Improvements === */
+@media (max-width: 576px) {
+    #splash-screen p,
+    #offline-page h2,
+    #offline-page p {
+        font-size: 1rem;
+    }
+
+    .navbar-nav {
+        margin-top: 0.5rem;
+    }
+}
+
+/* === Theme Toggle Animation (Optional) === */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === Jumbotron Replacement (Bootstrap 5 uses .bg-* and .p-* classes) === */
+.jumbotron {
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure high contrast in dark mode */
+[data-bs-theme="dark"] .jumbotron {
+    background-color: #1a1a1a;
+    color: #f8f9fa;
+}
+
+/* Prevent selection on splash screen */
+#splash-screen,
+#offline-page {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Smooth theme transition */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
