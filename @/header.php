@@ -24,12 +24,15 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0d6efd">
+    <link rel="manifest" href="./assets/manifest.json">
     <title><?php echo SITE_NAME; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./assets/css/custom.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
 <!-- Splash Screen -->
 <div id="splash-screen">
     <div class="spinner-border text-primary" role="status">
@@ -59,13 +62,13 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php"><?php echo TXT_HOME; ?></a>
+                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='index.php') echo ' active'; ?>" aria-current="page" href="index.php"><?php echo TXT_HOME; ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.php"><?php echo TXT_ABOUT; ?></a>
+                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='about.php') echo ' active'; ?>" href="about.php"><?php echo TXT_ABOUT; ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.php"><?php echo TXT_CONTACT; ?></a>
+                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='contact.php') echo ' active'; ?>" href="contact.php"><?php echo TXT_CONTACT; ?></a>
                         </li>
                     </ul>
                     <div class="d-flex">
@@ -93,4 +96,4 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
             </div>
         </nav>
     </header>
-    <main class="container mt-4">
+    <main class="container mt-4"></main>

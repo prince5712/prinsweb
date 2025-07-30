@@ -41,6 +41,17 @@ This project is a responsive, feature-rich website built with **PHP**, **Bootstr
 8.  **Bootstrap Icons Integration:**
     *   Uses the official Bootstrap Icons library via CDN for scalable vector graphics.
 
+## ♿ Accessibility
+
+* Semantic HTML and ARIA attributes for better screen reader support.
+* Skip-to-content link for keyboard navigation.
+* Responsive design for all devices.
+
+## 📱 Progressive Web App (PWA)
+
+* Service Worker for offline support.
+* Manifest file for installability.
+
 ## ▶️ Getting Started
 
 1.  **Prerequisites:**

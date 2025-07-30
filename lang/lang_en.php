@@ -23,4 +23,7 @@ define('TXT_EMAIL', 'Email address');
 define('TXT_MESSAGE', 'Message');
 define('TXT_SEND', 'Send');
 define('TXT_INFO', 'This is just a demonstration. The form doesn\'t actually send emails in this static example.');
+define('TXT_CONTRIBUTORS', 'Contributors');
+define('TXT_TIP', 'Tip');
+define('TXT_RESPONSIVE_TIP', 'Resize your browser to see responsive layout changes.');
 ?>

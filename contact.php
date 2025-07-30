@@ -15,19 +15,20 @@ include('./@/header.php');
             <div class="card-body">
                 <h5 class="card-title"><?php echo TXT_SEND_MESSAGE; ?></h5>
                 <form>
+                    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                     <div class="mb-3">
                         <label for="contactName" class="form-label"><?php echo TXT_NAME; ?></label>
-                        <input type="text" class="form-control" id="contactName" placeholder="<?php echo TXT_NAME; ?>" required>
+                        <input type="text" class="form-control" id="contactName" placeholder="<?php echo TXT_NAME; ?>" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="contactEmail" class="form-label"><?php echo TXT_EMAIL; ?></label>
-                        <input type="email" class="form-control" id="contactEmail" placeholder="<?php echo TXT_EMAIL; ?>" required>
+                        <input type="email" class="form-control" id="contactEmail" placeholder="<?php echo TXT_EMAIL; ?>" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="contactMessage" class="form-label"><?php echo TXT_MESSAGE; ?></label>
-                        <textarea class="form-control" id="contactMessage" rows="3" placeholder="<?php echo TXT_MESSAGE; ?>" required></textarea>
+                        <textarea class="form-control" id="contactMessage" rows="3" placeholder="<?php echo TXT_MESSAGE; ?>" required aria-required="true"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-send me-1"></i> <?php echo TXT_SEND; ?></button>
+                    <button type="submit" class="btn btn-primary" aria-label="<?php echo TXT_SEND; ?>"><i class="bi bi-send me-1"></i> <?php echo TXT_SEND; ?></button>
                 </form>
             </div>
         </div>
