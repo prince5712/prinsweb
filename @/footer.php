@@ -1,26 +1,65 @@
 <?php
 ?>
     </main>
-    <footer class="bg-light text-center text-lg-start mt-5" role="contentinfo">
-        <div class="container py-3">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-md-start text-center mb-2 mb-md-0">
-                    &copy; <?php echo date("Y"); ?> <?php echo SITE_NAME; ?> &mdash; <span class="text-muted"><?php echo LANG_NAME; ?></span>
+    <footer class="footer mt-auto py-4">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-boxes me-2"></i><?php echo SITE_NAME; ?>
+                    </h5>
+                    <p class="small mb-2"><?php echo TXT_SITE_DESCRIPTION; ?></p>
+                    <div class="social-links">
+                        <a href="#" class="me-2"><i class="bi bi-github"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-linkedin"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-6 text-md-end text-center">
-                    <a href="https://github.com/your-repo" class="text-dark me-3" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                    <a href="contact.php" class="text-dark me-3" aria-label="<?php echo TXT_CONTACT; ?>"><i class="bi bi-envelope"></i></a>
-                    <span class="text-muted small">Powered by PHP & Bootstrap</span>
+    
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.php"><?php echo TXT_HOME; ?></a></li>
+                        <li><a href="about.php"><?php echo TXT_ABOUT; ?></a></li>
+                        <li><a href="contact.php"><?php echo TXT_CONTACT; ?></a></li>
+                    </ul>
+                </div>
+    
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="footer-heading">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+    
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="footer-heading">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope-fill me-2"></i>contact@example.com</li>
+                        <li><i class="bi bi-telephone-fill me-2"></i>+1 234 567 890</li>
+                    </ul>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    <small class="text-muted">Accessibility: <a href="#" class="text-decoration-underline">Statement</a></small>
+            
+            <hr class="my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small>&copy; <?php echo date("Y"); ?> <?php echo SITE_NAME; ?>. All rights reserved.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <small class="text-muted">
+                        <span class="me-2">Language: <?php echo LANG_NAME; ?></span>
+                        <a href="#" class="text-decoration-underline me-2">Accessibility</a>
+                        <a href="#" class="text-decoration-underline">Privacy</a>
+                    </small>
                 </div>
             </div>
         </div>
     </footer>
-</div> <!-- End #main-content -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 <script src="./assets/js/main.js" defer></script>

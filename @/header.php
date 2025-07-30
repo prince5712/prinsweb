@@ -33,6 +33,7 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
 </head>
 <body>
 <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
 <!-- Splash Screen -->
 <div id="splash-screen">
     <div class="spinner-border text-primary" role="status">
@@ -52,43 +53,68 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
 
 <!-- Main Content Area -->
 <div id="main-content">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.php"><?php echo SITE_NAME; ?></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <header class="header-area">
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.php">
+                    <i class="bi bi-boxes me-2"></i>
+                    <?php echo SITE_NAME; ?>
+                </a>
+    
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="bi bi-list"></i>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='index.php') echo ' active'; ?>" aria-current="page" href="index.php"><?php echo TXT_HOME; ?></a>
+                            <a class="nav-link<?php echo (basename($_SERVER['PHP_SELF']) == 'index.php' ? ' active' : ''); ?>" href="index.php">
+                                <i class="bi bi-house-door me-1"></i><?php echo TXT_HOME; ?>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='about.php') echo ' active'; ?>" href="about.php"><?php echo TXT_ABOUT; ?></a>
+                            <a class="nav-link<?php echo (basename($_SERVER['PHP_SELF']) == 'about.php' ? ' active' : ''); ?>" href="about.php">
+                                <i class="bi bi-info-circle me-1"></i><?php echo TXT_ABOUT; ?>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link<?php if(basename($_SERVER['PHP_SELF'])=='contact.php') echo ' active'; ?>" href="contact.php"><?php echo TXT_CONTACT; ?></a>
+                            <a class="nav-link<?php echo (basename($_SERVER['PHP_SELF']) == 'contact.php' ? ' active' : ''); ?>" href="contact.php">
+                                <i class="bi bi-envelope me-1"></i><?php echo TXT_CONTACT; ?>
+                            </a>
                         </li>
                     </ul>
-                    <div class="d-flex">
-                        <div class="dropdown me-2">
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-globe"></i> <?php echo TXT_LANGUAGE; ?>
+
+                    <div class="nav-utilities d-flex align-items-center gap-2">
+                        <div class="dropdown">
+                            <button class="btn btn-sm dropdown-toggle" type="button" id="langDropdown" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-globe2"></i>
+                                <span class="d-none d-sm-inline ms-1"><?php echo LANG_NAME; ?></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
                                 <li><a class="dropdown-item" href="?lang=en">English</a></li>
-                                <li><a class="dropdown-item" href="?lang=hi">&#x939;&#x93F;&#x902;&#x926;&#x940;</a></li>
+                                <li><a class="dropdown-item" href="?lang=hi">हिन्दी</a></li>
                             </ul>
                         </div>
+
                         <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Auto (System)">
-                                <i class="bi bi-circle-half"></i> <?php echo TXT_THEME; ?>
+                            <button class="btn btn-sm dropdown-toggle" type="button" id="themeDropdown" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-circle-half"></i>
+                                <span class="d-none d-sm-inline ms-1"><?php echo TXT_THEME; ?></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="themeDropdown">
-                                <li><a class="dropdown-item" href="#" data-bs-theme-value="auto"><i class="bi bi-circle-half"></i> <?php echo TXT_THEME_AUTO; ?></a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-theme-value="light"><i class="bi bi-sun"></i> <?php echo TXT_THEME_LIGHT; ?></a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-theme-value="dark"><i class="bi bi-moon"></i> <?php echo TXT_THEME_DARK; ?></a></li>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                                <li><a class="dropdown-item" href="#" data-bs-theme-value="auto">
+                                    <i class="bi bi-circle-half me-2"></i><?php echo TXT_THEME_AUTO; ?>
+                                    </a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-theme-value="light">
+                                        <i class="bi bi-sun me-2"></i><?php echo TXT_THEME_LIGHT; ?>
+                                    </a></li>
+                                <li><a class="dropdown-item" href="#" data-bs-theme-value="dark">
+                                        <i class="bi bi-moon me-2"></i><?php echo TXT_THEME_DARK; ?>
+                                    </a></li>
                             </ul>
                         </div>
                     </div>
@@ -96,4 +122,4 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
             </div>
         </nav>
     </header>
-    <main class="container mt-4"></main>
+    <main class="container py-5">
