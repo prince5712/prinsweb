@@ -1,6 +1,5 @@
 <?php
 // @/config.php
-
 session_start();
 
 // --- Language Handling ---
@@ -18,7 +17,7 @@ if (isset($_SESSION['lang']) && !empty($_SESSION['lang'])) {
     $selected_lang = $_SESSION['lang'];
 } else {
     // 3. Auto-detect browser language (fallback to 'en')
-    $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'en', 0, 2);
     $supported_langs = ['en', 'hi']; // Add more as needed
     $selected_lang = in_array($browser_lang, $supported_langs) ? $browser_lang : 'en';
     $_SESSION['lang'] = $selected_lang;
@@ -52,6 +51,6 @@ if (file_exists($lang_file_path)) {
 
 // --- Site Configuration ---
 define('SITE_NAME', 'Prinsweb');
-define('BASE_URL', 'http://localhost/prinsweb/'); // Adjust to your actual URL or your-project-name
-
+// IMPORTANT: Adjust this to your actual URL or project name
+define('BASE_URL', 'http://localhost/prinsweb/');
 ?>

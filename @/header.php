@@ -1,6 +1,5 @@
 <?php
 // @/header.php
-// This file now includes its own dependency.
 
 // Define the path to the config file relative to this file's location
 $config_path = __DIR__ . '/config.php';
@@ -13,20 +12,29 @@ if (file_exists($config_path)) {
     http_response_code(500); // Internal Server Error
     die('Error: Configuration file (@/config.php) not found. Please check your installation.');
 }
-// Ensure language constants are defined, even if config failed (fallback)
-if (!defined('LANG_CODE')) { define('LANG_CODE', 'en'); }
-if (!defined('TXT_HOME')) { define('TXT_HOME', 'Home'); }
-if (!defined('TXT_ABOUT')) { define('TXT_ABOUT', 'About'); }
-if (!defined('TXT_CONTACT')) { define('TXT_CONTACT', 'Contact'); }
-if (!defined('TXT_SPLASH_MESSAGE')) { define('TXT_SPLASH_MESSAGE', 'Loading...'); }
-if (!defined('TXT_OFFLINE_MESSAGE')) { define('TXT_OFFLINE_MESSAGE', 'No Internet Connection'); }
-if (!defined('TXT_LANGUAGE')) { define('TXT_LANGUAGE', 'Language'); }
-if (!defined('TXT_THEME')) { define('TXT_THEME', 'Theme'); }
-if (!defined('TXT_THEME_AUTO')) { define('TXT_THEME_AUTO', 'Auto'); }
-if (!defined('TXT_THEME_LIGHT')) { define('TXT_THEME_LIGHT', 'Light'); }
-if (!defined('TXT_THEME_DARK')) { define('TXT_THEME_DARK', 'Dark'); }
-if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
 
+// Ensure language constants are defined, even if config failed (fallback)
+// Define fallbacks if not loaded by config/lang files
+$fallbacks = [
+    'LANG_CODE' => 'en',
+    'TXT_HOME' => 'Home',
+    'TXT_ABOUT' => 'About',
+    'TXT_CONTACT' => 'Contact',
+    'TXT_SPLASH_MESSAGE' => 'Loading...',
+    'TXT_OFFLINE_MESSAGE' => 'No Internet Connection',
+    'TXT_LANGUAGE' => 'Language',
+    'TXT_THEME' => 'Theme',
+    'TXT_THEME_AUTO' => 'Auto',
+    'TXT_THEME_LIGHT' => 'Light',
+    'TXT_THEME_DARK' => 'Dark',
+    'SITE_NAME' => 'My Website',
+];
+
+foreach ($fallbacks as $constant => $value) {
+    if (!defined($constant)) {
+        define($constant, $value);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo LANG_CODE; ?>" data-bs-theme="auto">
@@ -39,7 +47,7 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
     <!-- Link to Custom CSS -->
     <link rel="stylesheet" href="./assets/css/custom.css">
 </head>
-<body>
+<body class="d-flex flex-column vh-100"> <!-- Enable flexbox for sticky footer -->
 
 <!-- Splash Screen -->
 <div id="splash-screen">
@@ -58,10 +66,12 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
     </div>
 </div>
 
-<!-- Main Content Area (Initially Hidden) -->
-<div id="main-content">
+<!-- Main Content Wrapper (for sticky footer) -->
+<div id="main-wrapper" class="flex-grow-1 d-flex flex-column"> <!-- Flex grow pushes footer down -->
+
+    <!-- Fixed Top Navbar -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top"> <!-- Changed classes -->
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php"><?php echo SITE_NAME; ?></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,19 +80,19 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php"><?php echo TXT_HOME; ?></a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>" aria-current="page" href="index.php"><?php echo TXT_HOME; ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.php"><?php echo TXT_ABOUT; ?></a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'about.php') ? 'active' : ''; ?>" href="about.php"><?php echo TXT_ABOUT; ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.php"><?php echo TXT_CONTACT; ?></a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'contact.php') ? 'active' : ''; ?>" href="contact.php"><?php echo TXT_CONTACT; ?></a>
                         </li>
                     </ul>
                     <div class="d-flex">
                         <!-- Language Dropdown -->
                         <div class="dropdown me-2">
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-outline-light dropdown-toggle btn-sm" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-globe"></i> <?php echo TXT_LANGUAGE; ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="langDropdown">
@@ -91,10 +101,9 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
                                 <!-- Add more languages -->
                             </ul>
                         </div>
-
                         <!-- Theme Dropdown -->
                         <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Auto (System)">
+                            <button class="btn btn-outline-light dropdown-toggle btn-sm" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Auto (System)">
                                 <i class="bi bi-circle-half"></i> <?php echo TXT_THEME; ?>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="themeDropdown">
@@ -108,4 +117,6 @@ if (!defined('SITE_NAME')) { define('SITE_NAME', 'My Website'); }
             </div>
         </nav>
     </header>
-    <main class="container mt-4">
+
+    <!-- Main Content Area (Initially Hidden, shown after splash) -->
+    <main id="main-content" class="container-fluid my-4 flex-grow-1"> <!-- Added flex-grow-1 -->

@@ -1,6 +1,5 @@
 <?php
 // lang/lang_en.php
-
 define('LANG_CODE', 'en');
 define('LANG_NAME', 'English');
 define('TXT_HOME', 'Home');
@@ -17,5 +16,4 @@ define('TXT_ABOUT_CONTENT', 'This is the about page. Learn more about us here.')
 define('TXT_CONTACT_CONTENT', 'This is the contact page. Get in touch with us.');
 define('TXT_LANGUAGE', 'Language');
 define('TXT_THEME', 'Theme');
-
 ?>

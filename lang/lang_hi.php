@@ -1,6 +1,5 @@
 <?php
 // lang/lang_hi.php
-
 define('LANG_CODE', 'hi');
 define('LANG_NAME', 'हिंदी');
 define('TXT_HOME', 'होम');
@@ -17,5 +16,4 @@ define('TXT_ABOUT_CONTENT', 'यह बारे में पृष्ठ ह�
 define('TXT_CONTACT_CONTENT', 'यह संपर्क पृष्ठ है। हमसे संपर्क करें।');
 define('TXT_LANGUAGE', 'भाषा');
 define('TXT_THEME', 'थीम');
-
 ?>

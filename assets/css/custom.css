@@ -1,12 +1,21 @@
 /* assets/css/custom.css */
 
-/* Splash Screen */
+/* --- Body & Main Wrapper for Sticky Footer --- */
+/* Body is set to d-flex flex-column vh-100 in header.php */
+/* #main-wrapper is set to flex-grow-1 d-flex flex-column in header.php */
+/* #main-content gets flex-grow-1 to take up available space */
+
+
+/* --- Splash Screen --- */
 #splash-screen {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     /* Use Bootstrap theme-aware background colors */
-    background-color: var(--bs-body-bg); /* Default light */
-    color: var(--bs-body-color); /* Default dark */
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,24 +24,34 @@
     opacity: 1;
     transition: opacity 0.5s ease-out;
 }
+
 /* Ensure splash/offline background matches dark theme if needed */
 [data-bs-theme="dark"] #splash-screen,
 [data-bs-theme="dark"] #offline-page {
     background-color: var(--bs-body-bg); /* Should be dark */
+    color: var(--bs-body-color);
 }
 
 #splash-screen.fade-out {
-     opacity: 0;
-     pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
+
+/* Initially hide main content */
 #main-content {
-    display: none; /* Hidden initially */
+    display: none;
+    /* flex-grow-1 is set in HTML to fill space between navbar and footer */
 }
-/* Offline Page Styles */
+
+
+/* --- Offline Page Styles --- */
 #offline-page {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
     justify-content: center;
@@ -40,8 +59,27 @@
     z-index: 9998;
 }
 
-/* Advanced Splash Animation Example */
-/* You can make the spinner or text pulse or fade in */
+/* --- Main Content Padding Fix for Fixed Navbar --- */
+/* The fixed navbar covers content, so add padding equal to its height */
+/* Bootstrap's default navbar height is ~56px for lg screens, ~48px for smaller */
+/* Using padding-top on the main content area or body is common */
+/* We'll add it to the main content wrapper div */
+/* Since we use flexbox for sticky footer, adding padding directly to #main-wrapper might interfere */
+/* A better approach is often to add a top margin or padding to the <main> element itself */
+/* Let's add padding-top to #main-content */
+/* We'll use a CSS variable or a fixed value. Bootstrap's spacing utilities can help too. */
+/* Let's try adding a class with padding-top to the main element in header.php */
+/* Actually, Bootstrap 5 has a utility for this: pt-5 (padding top 3rem) */
+/* But the navbar is smaller than 3rem usually. Let's use a custom style. */
+/* We added my-4 (margin y 1.5rem) to main. Let's increase top margin if needed. */
+/* Or, add padding to the wrapper div inside body but below navbar. */
+/* Easiest fix: Add padding-top to the body when navbar is fixed. */
+/* However, splash screen covers everything, so it's less critical during load. */
+/* After splash, main-content needs padding. */
+/* Let's stick with the my-4 on main for now, and adjust if needed. */
+
+
+/* --- Advanced Splash Animation Example (Optional) --- */
 /*
 #splash-screen .spinner-border {
     animation: pulse 2s infinite;
@@ -52,3 +90,10 @@
   100% { opacity: 0.5; }
 }
 */
+
+/* --- Sticky Footer Adjustments --- */
+/* The .mt-auto on the footer should handle pushing it down. */
+/* Ensure footer doesn't shrink */
+footer {
+    flex-shrink: 0; /* Footer should not shrink */
+}

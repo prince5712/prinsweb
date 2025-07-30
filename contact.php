@@ -2,14 +2,12 @@
 // contact.php
 include('./@/header.php');
 ?>
-
 <div class="row">
     <div class="col-12">
         <h1><?php echo TXT_CONTACT; ?></h1>
         <p><?php echo TXT_CONTACT_CONTENT; ?></p>
     </div>
 </div>
-
 <div class="row mt-4">
     <div class="col-lg-6 mb-4">
         <div class="card h-100">
@@ -48,7 +46,6 @@ include('./@/header.php');
         </div>
     </div>
 </div>
-
 <div class="row mt-4">
     <div class="col-12">
         <div class="alert alert-info" role="alert">
@@ -57,7 +54,6 @@ include('./@/header.php');
         </div>
     </div>
 </div>
-
 <?php
 include('./@/footer.php');
 ?>

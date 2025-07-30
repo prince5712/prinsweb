@@ -2,7 +2,6 @@
 // index.php
 include('./@/header.php');
 ?>
-
 <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
     <h1 class="display-4"><?php echo TXT_WELCOME; ?></h1>
     <p class="lead"><?php echo TXT_SITE_DESCRIPTION; ?></p>
@@ -11,7 +10,6 @@ include('./@/header.php');
     <!-- Example of using Bootstrap Icons -->
     <p><i class="bi bi-stars"></i> This page uses Bootstrap Icons!</p>
 </div>
-
 <div class="row">
     <div class="col-md-4">
         <h2><?php echo TXT_HOME; ?></h2>
@@ -31,7 +29,6 @@ include('./@/header.php');
         <p><i class="bi bi-envelope-fill"></i></p>
     </div>
 </div>
-
 <?php
 include('./@/footer.php');
 ?>

@@ -2,7 +2,6 @@
 // about.php
 include('./@/header.php');
 ?>
-
 <div class="row">
     <div class="col-12">
         <h1><?php echo TXT_ABOUT; ?></h1>
@@ -11,7 +10,6 @@ include('./@/header.php');
         <p><i class="bi bi-lightbulb"></i> Did you know you can switch themes?</p>
     </div>
 </div>
-
 <div class="row mt-4">
     <div class="col-md-6">
         <h3>Features</h3>
@@ -55,7 +53,6 @@ include('./@/header.php');
         </div>
     </div>
 </div>
-
 <?php
 include('./@/footer.php');
 ?>
