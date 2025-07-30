@@ -1,133 +1,118 @@
-// @/assets/js/main.js
+// Debounce function to limit the rate at which a function can fire
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
 
 // --- Service Worker Registration ---
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        const swPath = './assets/js/service-worker.js'; // Relative to site root
-        navigator.serviceWorker.register(swPath)
+        navigator.serviceWorker.register('/assets/js/service-worker.js')
             .then((registration) => {
-                console.log('✅ Service Worker registered:', registration.scope);
+                console.log('Service Worker registered with scope:', registration.scope);
             })
             .catch((error) => {
-                console.warn('⚠️ Service Worker registration failed:', error);
+                console.log('Service Worker registration failed:', error);
             });
     });
-} else {
-    console.log('ℹ️ Service Workers not supported in this browser.');
 }
 
-// --- Splash Screen Control ---
+// --- Splash Screen ---
 function hideSplashScreen() {
-    const splash = document.getElementById('splash-screen');
-    const mainContent = document.getElementById('main-content');
-    const offlinePage = document.getElementById('offline-page');
-
-    if (!splash) return;
-
-    // Only hide splash if we're online or ready to show offline page
-    if (navigator.onLine || offlinePage?.style.display !== 'none') {
-        splash.classList.add('fade-out');
+    const splashScreen = document.getElementById('splash-screen');
+    if (splashScreen) {
+        splashScreen.classList.add('fade-out');
         setTimeout(() => {
-            splash.style.display = 'none';
-            if (mainContent && navigator.onLine) {
-                mainContent.classList.remove('d-none');
+            splashScreen.style.display = 'none';
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.style.display = 'block';
             }
-        }, 500); // Match CSS transition duration
+        }, 500);
     }
 }
-
-// Show splash for at least 1.5s, then hide when page is ready
 window.addEventListener('load', () => {
     setTimeout(hideSplashScreen, 1500);
 });
 
-// --- Theme Switching Logic ---
+// --- Theme Switching ---
 function setTheme(theme) {
-    let appliedTheme = theme;
-
     if (theme === 'auto') {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        appliedTheme = prefersDark ? 'dark' : 'light';
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-bs-theme', systemPrefersDark ? 'dark' : 'light');
+    } else {
+        document.documentElement.setAttribute('data-bs-theme', theme);
     }
+    updateThemeButtonUI(theme);
+}
 
-    document.documentElement.setAttribute('data-bs-theme', appliedTheme);
-
-    // Update dropdown UI
-    const themeIcon = document.querySelector('#themeDropdown i.bi');
-    const themeBtn = document.querySelector('#themeDropdown');
-
+function updateThemeButtonUI(theme) {
+    const themeIcon = document.querySelector('#themeDropdown i');
+    const themeDropdown = document.querySelector('#themeDropdown');
     if (themeIcon) {
-        themeIcon.className = 'bi'; // Clear old icons
-        if (appliedTheme === 'light') {
-            themeIcon.classList.add('bi-sun');
-            themeBtn.title = TXT_THEME_LIGHT;
-        } else if (appliedTheme === 'dark') {
-            themeIcon.classList.add('bi-moon');
-            themeBtn.title = TXT_THEME_DARK;
-        } else {
+        themeIcon.className = 'bi';
+        if (theme === 'auto') {
             themeIcon.classList.add('bi-circle-half');
-            themeBtn.title = TXT_THEME_AUTO;
+            if (themeDropdown) themeDropdown.title = "Auto (System)";
+        } else if (theme === 'light') {
+            themeIcon.classList.add('bi-sun');
+            if (themeDropdown) themeDropdown.title = "Light Mode";
+        } else if (theme === 'dark') {
+            themeIcon.classList.add('bi-moon');
+            if (themeDropdown) themeDropdown.title = "Dark Mode";
         }
     }
 }
 
-// Initialize theme from localStorage or system preference
-document.addEventListener('DOMContentLoaded', () => {
-    let savedTheme = localStorage.getItem('theme') || 'auto';
-    setTheme(savedTheme);
+// Set initial theme
+let savedTheme = localStorage.getItem('theme') || 'auto';
+setTheme(savedTheme);
 
-    // Add click listeners to theme dropdown items
-    document.querySelectorAll('[data-bs-theme-value]').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            const theme = e.target.getAttribute('data-bs-theme-value');
-            localStorage.setItem('theme', theme);
-            setTheme(theme);
-        });
-    });
-});
-
-// Listen for system theme changes (only if in "auto" mode)
+// Listen for system theme changes
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (localStorage.getItem('theme') === 'auto') {
-        const newTheme = e.matches ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-bs-theme', newTheme);
+        setTheme(e.matches ? 'dark' : 'light');
     }
+});
+
+// Handle theme dropdown clicks with debounce
+const themeButtons = document.querySelectorAll('[data-bs-theme-value]');
+themeButtons.forEach(button => {
+    button.addEventListener('click', debounce(function (e) {
+        e.preventDefault();
+        const theme = this.getAttribute('data-bs-theme-value');
+        localStorage.setItem('theme', theme);
+        setTheme(theme);
+    }, 300));
+});
+
+// --- Content Protection ---
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('copy', event => event.preventDefault());
+    document.addEventListener('cut', event => event.preventDefault());
+    document.addEventListener('paste', event => event.preventDefault());
 });
 
 // --- Offline Support ---
 function updateOnlineStatus() {
     const offlinePage = document.getElementById('offline-page');
     const mainContent = document.getElementById('main-content');
-
-    if (!offlinePage) return;
+    const splashScreen = document.getElementById('splash-screen');
 
     if (navigator.onLine) {
-        offlinePage.classList.add('d-none');
-        offlinePage.classList.remove('flex');
-        if (mainContent && document.getElementById('splash-screen')?.style.display === 'none') {
-            mainContent.classList.remove('d-none');
+        if (offlinePage) offlinePage.style.display = 'none';
+        if (mainContent && splashScreen && splashScreen.style.display === 'none') {
+            mainContent.style.display = 'block';
         }
     } else {
-        mainContent?.classList.add('d-none');
-        offlinePage.classList.remove('d-none');
-        offlinePage.classList.add('flex');
+        if (offlinePage) offlinePage.style.display = 'flex';
+        if (mainContent) mainContent.style.display = 'none';
     }
 }
-
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
-
-// Initial check
-document.addEventListener('DOMContentLoaded', () => {
-    updateOnlineStatus();
-});
-
-// --- Content Protection (Optional - Use with Caution) ---
-// ⚠️ Note: This is not foolproof and may frustrate users.
-/*
-document.addEventListener('contextmenu', (e) => e.preventDefault());
-document.addEventListener('copy', (e) => e.preventDefault());
-document.addEventListener('cut', (e) => e.preventDefault());
-document.addEventListener('paste', (e) => e.preventDefault());
-*/
+updateOnlineStatus();

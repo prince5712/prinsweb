@@ -1,28 +1,7 @@
-/* @/assets/css/custom.css */
-/* === Global Layout & Sticky Footer Support === */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-#main-content {
-    flex: 1 0 auto;
-}
-
-/* === Splash Screen === */
+/* Splash Screen */
 #splash-screen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
     display: flex;
@@ -34,149 +13,35 @@ body {
     transition: opacity 0.5s ease-out;
 }
 
+[data-bs-theme="dark"] #splash-screen,
+[data-bs-theme="dark"] #offline-page {
+    background-color: var(--bs-body-bg);
+}
+
 #splash-screen.fade-out {
     opacity: 0;
     pointer-events: none;
 }
 
-#splash-screen .spinner-border {
-    width: 3rem;
-    height: 3rem;
-}
-
-/* === Offline Page === */
-#offline-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--bs-body-bg);
-    color: var(--bs-body-color);
+#main-content {
     display: none;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+#main-content main {
+    flex-grow: 1;
+    padding-top: 56px; /* Adjust based on navbar height next to navbar-expand-lg */
+}
+
+/* Offline Page Styles */
+#offline-page {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     justify-content: center;
     align-items: center;
     z-index: 9998;
-    text-align: center;
-    padding: 2rem;
-    box-sizing: border-box;
-}
-
-#offline-page i {
-    font-size: 3rem;
-}
-
-/* Auto theme adjustment for splash/offline screens */
-[data-bs-theme="dark"] #splash-screen,
-[data-bs-theme="dark"] #offline-page {
-    background-color: var(--bs-dark);
-    color: var(--bs-light);
-}
-
-[data-bs-theme="light"] #splash-screen,
-[data-bs-theme="light"] #offline-page {
-    background-color: var(--bs-light);
-    color: var(--bs-dark);
-}
-
-/* === Navbar Enhancements === */
-.navbar {
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.navbar-brand {
-    font-weight: 600;
-}
-
-.nav-link {
-    transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-    color: var(--bs-primary) !important;
-}
-
-/* === Footer === */
-.footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* === Content Cards & UI Elements === */
-.card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn {
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.btn-primary {
-    background-color: var(--bs-primary);
-    border: none;
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--bs-primary);
-    color: white !important;
-}
-
-/* === Form Elements === */
-.form-control:focus {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-}
-
-/* === Responsive Improvements === */
-@media (max-width: 576px) {
-    #splash-screen p,
-    #offline-page h2,
-    #offline-page p {
-        font-size: 1rem;
-    }
-
-    .navbar-nav {
-        margin-top: 0.5rem;
-    }
-}
-
-/* === Theme Toggle Animation (Optional) === */
-body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* === Jumbotron Replacement (Bootstrap 5 uses .bg-* and .p-* classes) === */
-.jumbotron {
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Ensure high contrast in dark mode */
-[data-bs-theme="dark"] .jumbotron {
-    background-color: #1a1a1a;
-    color: #f8f9fa;
-}
-
-/* Prevent selection on splash screen */
-#splash-screen,
-#offline-page {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Smooth theme transition */
-* {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
