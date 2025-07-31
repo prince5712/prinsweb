@@ -5,119 +5,92 @@ include_once './@/header.php';
 ?>
 
 <!-- Hero Section -->
-<div class="bg-primary text-white p-5 rounded-4 mb-5 position-relative overflow-hidden">
-    <div class="position-absolute top-0 end-0 p-5">
-        <i class="bi bi-info-circle display-1 opacity-25"></i>
-    </div>
-    <div class="row align-items-center">
-        <div class="col-lg-8">
-            <h1 class="display-4 fw-bold mb-3"><?php echo TXT_ABOUT; ?></h1>
-            <p class="lead mb-4"><?php echo TXT_ABOUT_CONTENT; ?></p>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php" class="text-white"><?php echo TXT_HOME; ?></a></li>
-                    <li class="breadcrumb-item active text-white" aria-current="page"><?php echo TXT_ABOUT; ?></li>
-                    </ol>
-                    </nav>
-                    </div>
-    </div>
+<div class="bg-primary bg-opacity-10 py-5">
+    <div class="container">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="assets/img/about-hero.jpg" class="d-block mx-lg-auto img-fluid" alt="About Us" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><?php echo TXT_ABOUT; ?></h1>
+                <p class="lead">Our company has been at the forefront of innovation for over a decade, delivering exceptional
+                    solutions to our valued clients.</p>
+            </div>
+            </div>
+            </div>
 </div>
 
-<!-- Main Content -->
-<div class="row g-4 mb-5">
-    <!-- Project Overview -->
-    <div class="col-md-6">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-4">
-                    <div class="feature-icon bg-primary bg-opacity-10 rounded-3 p-3 me-3">
-                        <i class="bi bi-stack text-primary display-6"></i>
-                    </div>
-                    <h2 class="h4 mb-0">Project Overview</h2>
+<!-- Mission Section -->
+<div class="py-5">
+    <div class="container">
+        <div class="row g-4 py-5">
+            <div class="col-md-4">
+                <div class="feature-icon bg-primary p-3 mb-3 rounded-circle d-inline-flex">
+                    <i class="bi bi-bullseye text-white fs-3"></i>
                 </div>
-                <p class="text-muted"><?php echo TXT_SITE_DESCRIPTION; ?></p>
-                    <ul class="list-unstyled mt-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Modern Design</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Responsive Layout</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Multi-Language Support</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-success me-2"></i>Dark/Light Theme</li>
-                    </ul>
-                    </div>
-                    </div>
-                    </div>
-                    
-                    <!-- Tech Stack -->
-                    <div class="col-md-6">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body">
-                <div class="d-flex align-items-center mb-4">
-                    <div class="feature-icon bg-primary bg-opacity-10 rounded-3 p-3 me-3">
-                        <i class="bi bi-code-square text-primary display-6"></i>
-                    </div>
-                    <h2 class="h4 mb-0">Tech Stack</h2>
+                <h3 class="text-primary">Our Mission</h3>
+                <p>To provide innovative solutions that empower businesses to achieve their full potential.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-icon bg-primary p-3 mb-3 rounded-circle d-inline-flex">
+                    <i class="bi bi-eye text-white fs-3"></i>
                 </div>
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="p-3 rounded-3 bg-body-tertiary">
-                            <i class="bi bi-filetype-php text-primary me-2"></i>PHP 7.4+
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 rounded-3 bg-body-tertiary">
-                            <i class="bi bi-bootstrap text-primary me-2"></i>Bootstrap 5
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 rounded-3 bg-body-tertiary">
-                            <i class="bi bi-braces text-primary me-2"></i>JavaScript
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 rounded-3 bg-body-tertiary">
-                            <i class="bi bi-gear text-primary me-2"></i>Service Worker
-                        </div>
-                    </div>
+                <h3 class="text-primary">Our Vision</h3>
+                <p>To become the global leader in delivering transformative digital solutions.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-icon bg-primary p-3 mb-3 rounded-circle d-inline-flex">
+                    <i class="bi bi-heart text-white fs-3"></i>
                 </div>
+                <h3 class="text-primary">Our Values</h3>
+                <p>Innovation, integrity, and excellence in everything we do.</p>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Team Section -->
-<div class="card border-0 shadow-sm mb-5">
-    <div class="card-body p-4">
-        <h2 class="h4 mb-4">Our Team</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="rounded-circle bg-primary bg-opacity-10 mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-fill text-primary display-6"></i>
-                    </div>
-                    <h5 class="mb-1">John Doe</h5>
-                    <p class="text-muted small mb-0">Lead Developer</p>
+<div class="container py-5">
+    <h2 class="text-center mb-5 text-primary">Our Team</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm transition-hover">
+                <img src="assets/img/team-1.jpg" class="card-img-top" alt="Team Member">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary">John Doe</h5>
+                    <p class="card-text text-muted">CEO & Founder</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="rounded-circle bg-primary bg-opacity-10 mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-fill text-primary display-6"></i>
-                    </div>
-                    <h5 class="mb-1">Jane Smith</h5>
-                    <p class="text-muted small mb-0">UI/UX Designer</p>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm transition-hover">
+                <img src="assets/img/team-2.jpg" class="card-img-top" alt="Team Member">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary">Jane Smith</h5>
+                    <p class="card-text text-muted">Technical Director</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="text-center">
-                    <div class="rounded-circle bg-primary bg-opacity-10 mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-fill text-primary display-6"></i>
-                    </div>
-                    <h5 class="mb-1">Alex Johnson</h5>
-                    <p class="text-muted small mb-0">Full Stack Developer</p>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm transition-hover">
+                <img src="assets/img/team-3.jpg" class="card-img-top" alt="Team Member">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary">Mike Johnson</h5>
+                    <p class="card-text text-muted">Lead Developer</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.transition-hover {
+    transition: transform 0.3s ease-in-out;
+}
+.transition-hover:hover {
+    transform: translateY(-5px);
+}
+</style>
 
 <?php
 // Include footer (closes HTML structure)
