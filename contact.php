@@ -4,10 +4,10 @@ include_once './@/header.php';
 ?>
 
 <!-- Hero Section -->
-<div class="bg-primary bg-opacity-10 py-5">
-    <div class="container">
-        <h1 class="display-5 fw-bold text-center mb-3"><?php echo TXT_CONTACT; ?></h1>
-        <p class="text-center lead">Get in touch with us. We're here to help!</p>
+<div class="position-relative overflow-hidden text-center py-5 bg-secondary bg-opacity-10">
+    <div class="container py-4">
+        <h1 class="display-4 fw-bold"><?php echo TXT_CONTACT; ?></h1>
+        <p class="lead">Get in touch with us. We're here to help!</p>
     </div>
 </div>
 
@@ -18,7 +18,7 @@ include_once './@/header.php';
         <div class="col-md-4">
             <h3 class="mb-4">Contact Information</h3>
             <div class="d-flex mb-3">
-                <div class="feature-icon bg-primary p-2 me-3 rounded-circle d-inline-flex">
+                <div class="feature-icon bg-secondary p-2 me-3 rounded-circle d-inline-flex">
                     <i class="bi bi-geo-alt text-white"></i>
                 </div>
                 <div>
@@ -27,7 +27,7 @@ include_once './@/header.php';
                 </div>
             </div>
             <div class="d-flex mb-3">
-                <div class="feature-icon bg-primary p-2 me-3 rounded-circle d-inline-flex">
+                <div class="feature-icon bg-secondary p-2 me-3 rounded-circle d-inline-flex">
                     <i class="bi bi-telephone text-white"></i>
                 </div>
                 <div>
@@ -36,7 +36,7 @@ include_once './@/header.php';
                 </div>
             </div>
             <div class="d-flex">
-                <div class="feature-icon bg-primary p-2 me-3 rounded-circle d-inline-flex">
+                <div class="feature-icon bg-secondary p-2 me-3 rounded-circle d-inline-flex">
                     <i class="bi bi-envelope text-white"></i>
                 </div>
                 <div>
@@ -91,7 +91,7 @@ include_once './@/header.php';
                     </div>
 
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Send Message</button>
+                        <button class="btn btn-secondary" type="submit">Send Message</button>
                     </div>
                 </div>
             </form>
